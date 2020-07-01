@@ -1,0 +1,77 @@
+{{ header }}
+ 
+<script src="https://github.com/lindell/JsBarcode/releases/download/1.3/JsBarcode.all.min.js" />
+
+<script>
+    var options = {
+        displayValue: true,
+        height: <?= $template->bar_height; ?>,
+        fontSize: <?= $template->font_size; ?>,
+        margin: 0,
+        width: <?= $template->bar_width; ?>,
+        textmargin: 0,
+        format: "CODE128"
+    };
+</script>
+
+<style>
+	 
+	#insyaBarcodes {
+		display: flex;
+		flex-wrap: wrap;
+		text-align: center;
+	}
+
+	.barcode {
+		border: 1px solid #ccc;
+		flex: 1 0 21%; /* explanation below */
+		margin: 5px;
+		height: 100px;
+	}
+
+</style>
+<style type="text/css" media="print">
+    @page 
+    {
+        size: auto;   /* auto is the initial value */
+    }
+</style>
+
+
+<div id="insyaBarcodes">
+  
+	{% for product in products %}
+   <div class="barcode">
+			{% if product.product_id > 0 %}
+			
+			
+			<img id="barcode{{ product.product_id }}"/><br>
+			<small>{{ product.product_id }}</small><br>
+			<small>{{ product.name }}</small>
+			
+			<script>
+			 
+			$(document).ready(function() {
+				$('#barcode{{ product.product_id }}').JsBarcode("{{ product.product_id }}",{
+						format: "CODE39",
+						fontOptions: "bold",
+						height: 45,
+						width: 2,
+						margin: 15,
+						fontSize: 16,
+						textMargin: 0,
+						lineColor: "#333",
+				});
+			});
+			</script>
+			{% endif %}
+			
+	</div>
+	{% endfor %}
+ 
+</div>
+
+
+<script>
+    window.print();
+</script>
