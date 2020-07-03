@@ -1,6 +1,6 @@
 # Opencart-Barcode-System
 
-Opencart Simple Barcode &amp; Label Print System
+Opencart Simple Barcode &amp; Label Print System (OCMOD)
 
 - upload files /public_html
 - /admin -> Extensions -> Modifications -> Refresh
