@@ -1,0 +1,107 @@
+{{ header }}
+ 
+<script src="/JsBarcode.all.min.js" />
+
+<script>
+    var options = {
+        displayValue: true,
+        height: <?= $template->bar_height; ?>,
+        fontSize: <?= $template->font_size; ?>,
+        margin: 0,
+        width: <?= $template->bar_width; ?>,
+        textmargin: 0,
+        format: "CODE128"
+    };
+</script>
+
+<style>
+	 
+	#insyaBarcodes {
+		display: flex;
+		flex-wrap: wrap;
+		text-align: center;
+	}
+	
+	.barcode h4{
+		margin: 0;
+		padding: 0;
+		font-size: 20px;
+		font-weight: 700;
+	}
+
+	.barcode {
+		padding-top: 5px;
+		border: 1px solid #ccc;
+		flex: 1 0 21%; /* explanation below */
+		margin-bttom: 15.118110236;
+		margin-right: 1.118110236;
+		
+		height: 151.18110236px;
+		width: 134.17322835px;
+	}
+	
+	.barcode div{
+		padding: 5px;
+		font-size: 14px
+	}
+	
+	.barcode strong {
+		font-size: 22px;
+	}
+
+	.barcode span {
+		float: left;
+		clear: both;	
+		font-size: 30px;
+		margin-left: 8px
+	}
+	
+	.clear {
+		clear: both;
+	}
+
+</style>
+<style type="text/css" media="print">
+    @page 
+    {
+        size: auto;   /* auto is the initial value */
+    }
+</style>
+
+
+<div id="insyaBarcodes">
+  
+	{% for product in products %}
+   <div class="barcode">
+			{% if product.product_id > 0 %}
+			
+			<h4>sultanyaprak</h4>
+			<img id="barcode{{ product.barcode_id }}"/><br>
+			<span>{{ product.size }}</span>
+			<div>{{ product.name }}</div>
+			<script>
+			 
+			$(document).ready(function() {
+				$('#barcode{{ product.barcode_id }}').JsBarcode("{{ product.product_id }}",{
+						format: "CODE39",
+						fontOptions: "bold",
+						height: 28,
+						width: 1,
+						margin: 5,
+						fontSize: 22,
+						textMargin: 0,
+						lineColor: "#333",
+				});
+			});
+			</script>
+			{% endif %}
+			<div class="clear"></div>
+	</div>
+	{% endfor %}
+ 
+</div>
+
+
+<script>
+    window.print();
+</script>
